@@ -1,0 +1,79 @@
+.Box {
+	background-color: #eee;
+	border: .2em solid #fff;
+	padding: 1em 2em 1em 1em;
+	-moz-box-shadow: 0px 0px 1.25em #ccc;
+	-webkit-box-shadow: 0px 0px 1.25em #ccc;
+	box-shadow: 0px 0px 1.25em #ccc;
+
+}
+
+#searchBox{
+	float:left;
+	padding:1em 1em 1em 1em;
+	margin-right: 1em;
+}
+
+
+#searchBox ul {
+	font-size: 0.9em; list-style-type : none;
+	padding: 1em;
+	list-style-type: none;
+}
+
+#searchBox li {
+	line-height: 1.3;
+}
+#mapBox{
+	margin-left: 2em; 
+
+}
+
+#page-body {
+	margin: 2em 1em 1.25em 18em;
+}
+
+.searchfields {
+	width: 13em;
+	height: 40px;
+	font-size: 12pt;
+	border-top: 1px solid #cccccc;;
+    border-right-style: none;
+    border-bottom: 1px solid #cccccc;;
+    border-left-style: none;
+
+	
+}
+
+#searchButton {
+	float: right;
+	margin-top: 10px;
+	height: 2.3em;
+
+}
+
+
+#language {
+	  width: 13.94em;
+	   background-color: #AAA8AC;
+  	color: #FFFFFF;
+  	margin-bottom: 0.5em;
+}
+
+#language: hover{
+	background-color: #cccccc;
+}
+
+#map {
+	height: 400px;
+}
+
+#results li {
+	border-top: 1px solid #DFDFDF;
+	margin-top: 0.5em;
+	cursor: pointer; 
+}
+
+#lizenzBild {
+	color: black; 
+}
