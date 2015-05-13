@@ -5,29 +5,15 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
+import javax.annotation.PostConstruct
+
 /**
  * @author Raffaela F., Benny R.
  *
  */
 public class DatabaseInterface {
-
-	private Database db;
-
-	private static DatabaseInterface instance = null;
-
-	public static DatabaseInterface getInstance() {
-		if (instance == null) {
-			instance = new DatabaseInterface();
-		}
-
-		return instance;
-	}
-
-	private DatabaseInterface() {
-		db = new Database();
-		db.buildConnection();
-	}
-
+	static scope = "session"
+	
 	public static final String CATEGORY_PERSONS = "persons_";
 	public static final String CATEGORY_JOBS = "jobs_";
 	public static final String CATEGORY_STATES = "states_";
@@ -38,6 +24,14 @@ public class DatabaseInterface {
 	public static final String VIEW_NAME_PERSON = "persons_mview";
 	public static final String VIEW_NAME_EDUCATION_INSTITUTE = "educationinstitutes_mview";
 
+	Connection con = null;
+
+	@PostConstruct
+	//TODO check what happens to sessions during which the db connection changes
+	void init() {
+		// TODO this isnt so cool
+		con = Database.instance.getConnection();
+	}
 
 	/**
 	 * Using the <item>_label table
@@ -54,11 +48,8 @@ public class DatabaseInterface {
 			String language) {
 
 		String itemId = null;
-		Connection con = null;
 
 		try {
-
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT item_id FROM " + category
 					+ "label WHERE label = ? AND language = ?");
@@ -120,11 +111,7 @@ public class DatabaseInterface {
 			String language) {
 
 		String label = null;
-		Connection con = null;
-
 		try {
-
-			con = db.getConnection();
 			PreparedStatement pstmt = con.prepareStatement("SELECT label FROM "
 					+ category + "label WHERE item_id = ? AND language = ?");
 			pstmt.setString(1, itemId);
@@ -169,10 +156,7 @@ public class DatabaseInterface {
 	public String findUrlByItemId(String category, String itemId, String language) {
 		String wikiId = language + "wiki";
 		String link = null;
-		Connection con = null;
-
 		try {
-			con = db.getConnection();
 			PreparedStatement pstmt = con.prepareStatement("SELECT url FROM "
 					+ category + "link WHERE item_id = ? AND language = ?");
 			pstmt.setString(1, itemId);
@@ -219,10 +203,7 @@ public class DatabaseInterface {
 			String language) {
 
 		String description = null;
-		Connection con = null;
-
 		try {
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT description FROM " + category
 					+ "desc WHERE item_id = ? AND language = ?");
@@ -323,10 +304,8 @@ public class DatabaseInterface {
 			String itemId, String propertyId) {
 
 		List<String> values = new ArrayList<String>();
-		Connection con = null;
 
 		try {
-			con = db.getConnection();
 			PreparedStatement pstmt = con.prepareStatement("SELECT value FROM "
 					+ category + "claim WHERE item_id = ? AND property = ?");
 			pstmt.setString(1, itemId);
@@ -381,11 +360,8 @@ public class DatabaseInterface {
 			String job_id) {
 
 		List<String> educationInstituteids = new ArrayList<String>();
-		Connection con = null;
 
 		try {
-			con = db.getConnection();
-
 			// location for this parameter in the sql statement
 			int locationStateId = 0;
 			int locationCityId = 0;
@@ -488,10 +464,7 @@ public class DatabaseInterface {
 	public List<EducationInstituteBasicInformation> findAllEducationInstitutes() {
 
 		List<EducationInstituteBasicInformation> educationInstitutesBasicInformation = new ArrayList<>();
-		Connection con = null;
-
 		try {
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT longitude, latitude, id FROM "
 					+ VIEW_NAME_EDUCATION_INSTITUTE);
@@ -554,10 +527,7 @@ public class DatabaseInterface {
 			String educationInstituteid, String languageid) {
 
 		EducationInstitute educationInstitute = null;
-		Connection con = null;
-
 		try {
-			con = db.getConnection();
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM "
 					+ VIEW_NAME_EDUCATION_INSTITUTE
 					+ " WHERE id = ? AND language = ? ");
@@ -699,11 +669,8 @@ public class DatabaseInterface {
 
 		List<Language> languageList = new ArrayList<>();
 
-		Connection con = null;
-
 		try {
 
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT * FROM languages");
 
@@ -751,12 +718,7 @@ public class DatabaseInterface {
 	public List<JobStatisticDataset> findJobStatisticDatasetsByEducationInstituteid(
 			String educationInstituteid, String languageid) {
 		List<JobStatisticDataset> jobStatisticDatasets = new ArrayList<>();
-
-		Connection con = null;
-
 		try {
-
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT jobs.label AS jobname, count(sufu.JOB_ID)  AS jobcount FROM " + VIEW_NAME_SUFU + " AS sufu INNER JOIN jobs_label AS jobs ON sufu.JOB_ID = jobs.item_id WHERE sufu.UNI_ID = ? and language = ? GROUP BY JOB_ID");
 
@@ -811,11 +773,7 @@ public class DatabaseInterface {
 			String educationInstituteid, String languageid) {
 		List<Alumnus> alumni = new ArrayList<>();
 
-		Connection con = null;
-
 		try {
-
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT persons.name AS personname, persons.jobs_title, persons.wikipedia_hyperlink FROM "  + VIEW_NAME_SUFU +" AS sufu INNER JOIN " + VIEW_NAME_PERSON + " AS persons ON sufu.PERSON_ID = persons.person_ID WHERE sufu.UNI_ID = ? and language = ?");
 
@@ -866,11 +824,7 @@ public class DatabaseInterface {
 	public String findText(String textid, String languageid) {
 		String text = "";
 
-		Connection con = null;
-
 		try {
-
-			con = db.getConnection();
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT label, description FROM gui_texts WHERE language = ? AND item_id = ?");
 

@@ -12,6 +12,8 @@ import org.springframework.web.servlet.support.RequestContextUtils
  *
  */
 class IndexController {
+	
+	GlobalDAO globalDAO
 
 	/**
 	 * call of this method will render index.gsp
@@ -42,9 +44,9 @@ class IndexController {
 		if(searchAll) {
 			rendList = false;
 			// user is here for the first time
-			List<EducationInstituteBasicInformation> allResults = GlobalDAO.instance.getAllEducationInstitutes()
+			List<EducationInstituteBasicInformation> allResults = globalDAO.getAllEducationInstitutes()
 			allResults.each { e->
-				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
+				EducationInstitute ei = globalDAO.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
 				if(ei == null){
 					log.info "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
 				}else{
@@ -54,7 +56,7 @@ class IndexController {
 		}
 		else {
 			// user entered search param(s)
-			searchResult = GlobalDAO.instance.searchEducationInstitutes(
+			searchResult = globalDAO.searchEducationInstitutes(
 					staat,
 					ort,
 					bildEin,
@@ -76,8 +78,8 @@ class IndexController {
 
 		log.debug "markerString: " + markerString
 
-		[languages: GlobalDAO.instance.getLanguagesList(),
-			labels: GlobalDAO.instance,
+		[languages: globalDAO.getLanguagesList(),
+			labels: globalDAO,
 			textId: TextId,
 			institutes: searchResult,
 			markers: markerString,
@@ -94,7 +96,7 @@ class IndexController {
 		def locale = RequestContextUtils.getLocale(request)
 		log.info "spring determined language: " + locale.getLanguage()
 		if(params['lang'] == null || params['lang' == ""]) {
-			GlobalDAO.instance.getLanguagesList().each {i->
+			globalDAO.getLanguagesList().each {i->
 				log.debug i.getLanguageId()
 				if(i.getLanguageId()==locale.getLanguage()){
 					session.setAttribute("systemLanguage", i.getLanguageId())
@@ -130,7 +132,7 @@ class IndexController {
 				return
 			}
 			else {
-				edu = GlobalDAO.instance.getEducationInstituteById(id, session.getAttribute("systemLanguage"))
+				edu = globalDAO.getEducationInstituteById(id, session.getAttribute("systemLanguage"))
 			}
 		}
 		else{
@@ -180,7 +182,7 @@ class IndexController {
 			log.info "controller popup() call finished. return."
 			[educationInstitute: edu,
 				jsdString: jobStats,
-				labels: GlobalDAO.instance,
+				labels: globalDAO,
 				textId: TextId]
 		}
 
@@ -205,7 +207,7 @@ class IndexController {
 		if(id == null){
 			id=1;
 		}
-		[educationInstitute: GlobalDAO.instance.getEducationInstituteById(id, session.getAttribute("systemLanguage"))]
+		[educationInstitute: globalDAO.getEducationInstituteById(id, session.getAttribute("systemLanguage"))]
 
 	}
 
