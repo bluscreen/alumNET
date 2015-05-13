@@ -87,27 +87,27 @@
 								from="${languages}" optionKey="languageId"
 								optionValue="languageName"
 								value="${session.getAttribute("systemLanguage")}" /></li>
-						<li><g:textField class="searchfields masterTooltip" 
+						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
 								title="Please enter the name of the state the educational institution is located in"
 								name="staat"
 								placeholder="${labels.getText(textId.TEXTID_State.getTextid(), session.getAttribute("systemLanguage"))}"
 								value="${params['staat']}" /></li>
-						<li><g:textField class="searchfields masterTooltip" 
+						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
 								title="Please enter the name of the city the educiotional institution is located in"
 								name="ort"
 								placeholder="${labels.getText(textId.TEXTID_City.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['ort']}" /></li>
-						<li><g:textField class="searchfields masterTooltip"
+						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
 								title="Please enter the name of the educational institution"
 								name="bildungseinrichtung"
 								placeholder="${labels.getText(textId.TEXTID_Education_Institute.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['bildungseinrichtung']}"/></li>
-						<li><g:textField class="searchfields masterTooltip"
+						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
 								title="Please enter the name of the Alumni"
 								name="person"
 								placeholder="${labels.getText(textId.TEXTID_Person.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['person']}"/></li>
-						<li><g:textField class="searchfields masterTooltip" 
+						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
 								title="Please enter the profession of the Alumni" 
 								name="beruf"
 								placeholder="${labels.getText(textId.TEXTID_Job.getTextid(), session.getAttribute("systemLanguage")) }"

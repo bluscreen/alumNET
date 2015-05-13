@@ -23,13 +23,19 @@ class IndexController {
 	def index() {
 		log.info "index() called"
 		checkLanguageSet()
+		
+		String staat = params['staat']
+		String ort = params['ort']
+		String bildEin = params['bildungseinrichtung']
+		String person = params['person']
+		String beruf = params['beruf']
 
 		// Look if no search parameters are set
-		boolean searchAll = ((params['staat'] == null || params['staat'] == "")
-				&& (params['ort'] == null || params['ort'] == "")
-				&& (params['bildungseinrichtung'] == null || params['bildungseinrichtung'] == "")
-				&& (params['person'] == null || params['person'] == "")
-				&& (params['beruf'] == null ||params['beruf'] == ""))
+		boolean searchAll = ((staat == null || staat == "")
+				&& (ort == null || ort == "")
+				&& (bildEin == null || bildEin == "")
+				&& (person == null || person == "")
+				&& (beruf == null ||beruf == ""))
 
 		List<EducationInstitute> searchResult = []
 		boolean rendList = true;
@@ -49,11 +55,11 @@ class IndexController {
 		else {
 			// user entered search param(s)
 			searchResult = GlobalDAO.instance.searchEducationInstitutes(
-					params['staat'],
-					params['ort'],
-					params['bildungseinrichtung'],
-					params['person'],
-					params['beruf'],
+					staat,
+					ort,
+					bildEin,
+					person,
+					beruf,
 					session.getAttribute("systemLanguage"))
 		}
 
@@ -100,41 +106,6 @@ class IndexController {
 		}
 		log.info "session language:" + session.getAttribute("systemLanguage")
 	}
-
-	/**
-	 * AJAX Method to update search params stored in session
-	 * trigger = each param
-	 * this method has benn marked as deprecated and it is no longer used
-	 * as it is more efficient holding these values in get request/URL	
-	 * @return
-	 */
-
-	@Deprecated
-	def updateSearchParam() {
-		log.info "updateSearchParam() called"
-		log.info "param staat: " + params['staat']
-		log.info "param ort: " + params['ort']
-		log.info "param bildungseinrichtung: " + params['bildungseinrichtung']
-		log.info "param person: " + params['person']
-		log.info "param beruf: " + params['beruf']
-
-		if(params['staat'] != null) {
-			session.setAttribute("s_staat", params['staat'])
-		}
-		if(params['ort'] != null) {
-			session.setAttribute("s_ort", params['ort'])
-		}
-		if(params['bildungseinrichtung'] != null){
-			session.setAttribute("s_bildungseinrichtung", params['bildungseinrichtung'])
-		}
-		if(params['person'] != null){
-			session.setAttribute("s_person", params['person'])
-		}
-		if(params['beruf'] != null){
-			session.setAttribute("s_beruf", params['beruf'])
-		}
-	}
-
 
 	/**
 	 * call of this method will render popup.gsp
