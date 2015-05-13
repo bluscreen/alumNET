@@ -909,14 +909,7 @@ public class DatabaseInterface {
 				text = findText(textid, "en")
 			} else {
 				// no english text: show ERROR MULTILINGUAL!!! UGGH!!!
-
-//				if(textid != TextId.TEXTID_Error.getTextid())
-//				{
-//					text = findText(TextId.TEXTID_Error.getTextid(), languageid)
-//				}
-//				else{
-					text "ERROR"
-//				}
+				text = "ERROR"
 			}
 		}
 
