@@ -827,7 +827,7 @@ public class DatabaseInterface {
 				int total = 0;
 				while (rs.next()) {
 					String personname = rs.getString("personname");
-					String jobtitle = rs.getString("job_title");
+					String jobtitle = rs.getString("jobs_title");
 					String wikipediaLink = rs.getString("wikipedia_hyperlink");
 					Alumnus alumnus = new Alumnus(personname, jobtitle, wikipediaLink);
 					alumni.add(alumnus);
