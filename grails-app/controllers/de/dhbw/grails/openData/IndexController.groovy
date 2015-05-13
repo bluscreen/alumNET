@@ -148,15 +148,15 @@ class IndexController {
 		checkLanguageSet()
 
 		EducationInstitute edu
-		boolean badid = false
-
 		String id = params['id']
 
-		if(id.startsWith("Q")){
+		// check for url injections
+		if (id.charAt(0) >= 'A' && id.charAt(0) <= 'Z'){
 			String realId = id.substring(1);
 			if(!realId.isNumber()){
 				log.error "BAD ID!!! INJECTION?"
-				badid = true
+				response.sendError(404)
+				return
 			}
 			else {
 				edu = GlobalDAO.instance.getEducationInstituteById(id, session.getAttribute("systemLanguage"))
@@ -164,16 +164,17 @@ class IndexController {
 		}
 		else{
 			log.error "BAD ID!!! INJECTION?"
-			badid=true
+			response.sendError(404)
+			return
 		}
-		
+
 		log.error "params:"
 		params.each {i->
 			log.info "__"+ i
 		}
 
 		// DH 12.05. still no data from DB.. mocking it for ID Q219563
-		if(edu.id == "Q219563")
+		if(edu?.id == "Q219563")
 		{
 			log.info "Q219563 MOCKMOCKMOCK!!! BOCK"
 			JobStatisticDataset js1 = new JobStatisticDataset("Doenermann", 2)
@@ -199,19 +200,24 @@ class IndexController {
 			edu.alumnusList = al
 		}
 
-
 		String jobStats = ""
 		if(edu != null){
-			edu.jobStatisticList.eachWithIndex {num,idx ->
+			edu.jobStatisticList?.eachWithIndex { num,idx ->
 				jobStats += "['" + num.jobTitle + "'," + num.number + "]"
 				if(idx<edu.jobStatisticList.size()-1) jobStats += ",\n"
 			}
+			log.info "controller popup() call finished. return."
+			[educationInstitute: edu,
+				jsdString: jobStats,
+				labels: GlobalDAO.instance,
+				textId: TextId]
 		}
-		log.info "controller popup() call finished. return."
-		[educationInstitute: edu,
-			jsdString: jobStats,
-			labels: GlobalDAO.instance,
-			textId: TextId]
+
+		else {
+			log.error "404"
+			response.sendError(404)
+			return
+		}
 	}
 
 	@Deprecated

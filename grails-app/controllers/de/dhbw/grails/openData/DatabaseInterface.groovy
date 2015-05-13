@@ -903,14 +903,22 @@ public class DatabaseInterface {
 			log.error "DBI Error: ", e
 		}
 
-		// No text at all? Use english as fallback
-		if (text == null || text.isEmpty()) {
-			if (!languageid.equals("en")) {
-				text = findText(textid, "en")
-			} else {
-				// no english text: show ERROR MULTILINGUAL!!! UGGH!!!
-				text = "ERROR"
+		// what happens when theres no label
+		if (textid != TextId.TEXTID_Error.getTextid()) {
+			if(text == null || text.isEmpty()) {
+				// No text at all? Use english as fallback
+				if (!languageid.equals("en")) {
+					text = findText(textid, "en")
+				} else {
+					// theres no english text. try to find localized error label
+					log.info "couldnt find label '" + textid + "' trying to find localized error label"
+					text = findText(TextId.TEXTID_Error.getTextid(), languageid)
+				}
 			}
+		}
+		// wtf..couldnt even find that...
+		else {
+			text = "ERROR"
 		}
 
 		return text;
