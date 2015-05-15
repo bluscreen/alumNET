@@ -817,7 +817,7 @@ public class DatabaseInterface {
 
 			con = db.getConnection();
 			PreparedStatement pstmt = con
-					.prepareStatement("SELECT persons.name AS personname, persons.jobs_title, persons.wikipedia_hyperlink FROM "  + VIEW_NAME_SUFU +" AS sufu INNER JOIN " + VIEW_NAME_PERSON + " AS persons ON sufu.PERSON_ID = persons.person_ID WHERE sufu.UNI_ID = ? and language = ?");
+					.prepareStatement("SELECT DISTINCT persons.name AS personname, persons.jobs_title, persons.wikipedia_hyperlink FROM "  + VIEW_NAME_SUFU +" AS sufu INNER JOIN " + VIEW_NAME_PERSON + " AS persons ON sufu.PERSON_ID = persons.person_ID WHERE sufu.UNI_ID = ? and language = ?");
 
 			pstmt.setString(1, educationInstituteid);
 			pstmt.setString(2, languageid);

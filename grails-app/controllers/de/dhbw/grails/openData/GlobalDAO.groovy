@@ -123,24 +123,68 @@ public class GlobalDAO {
 
 		log.info "DatabaseInterface instance:" + dbi
 
-		// If the search field is null or empty --> wildcard (null value)
-		String state_id = (search_state == null || search_state.isEmpty() ? null
-				: dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_STATES,
-				search_state, languageid));
-		String city_id = (search_city == null || search_city.isEmpty() ? null
-				: dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_CITIES,
-				search_city, languageid));
-		String educationInstitute_id = (search_educationInstitute == null
-				|| search_educationInstitute.isEmpty() ? null : dbi
-				.findItemIdByLabel(
-				DatabaseInterface.CATEGORY_EDUCATION_INSTITUTES,
-				search_educationInstitute, languageid));
-		String alumnus_id = (search_alumnus == null || search_alumnus.isEmpty() ? null
-				: dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_PERSONS,
-				search_alumnus, languageid));
-		String job_id = (search_job == null || search_job.isEmpty() ? null
-				: dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_JOBS,
-				search_job, languageid));
+		/* If the search field is null or empty --> wildcard (null value)
+		 * If the search value is invalid (like the user enters "blablabla" or "Q123")
+		 * --> use the entered value in the search function (as QID).
+		 */
+		String state_id, city_id, educationInstitute_id, alumnus_id, job_id;
+			
+		if(search_state != null && !search_state.isEmpty()) {
+			state_id = dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_STATES,
+				search_state, languageid);
+			if(state_id == null) {
+				state_id = search_state;
+			}
+		} else {
+			state_id = null;
+		}
+				
+		
+		if(search_city != null && !search_city.isEmpty()) {
+			city_id = dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_CITIES,
+				search_city, languageid);
+			if(city_id == null) {
+				city_id = search_city;
+			}
+		} else {
+			city_id = null;
+		}
+			
+			
+		
+		if(search_educationInstitute != null && !search_educationInstitute.isEmpty()) {
+			educationInstitute_id = dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_EDUCATION_INSTITUTES,
+				search_educationInstitute, languageid);
+			if(educationInstitute_id == null) {
+				educationInstitute_id = search_educationInstitute;
+			}
+		} else {
+			educationInstitute_id = null;
+		}
+			
+
+		if(search_alumnus != null && !search_alumnus.isEmpty()) {
+			alumnus_id = dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_PERSONS,
+				search_alumnus, languageid);
+			if(alumnus_id == null) {
+				alumnus_id = search_alumnus;
+			}
+		} else {
+			alumnus_id = null;
+		}
+		
+
+		if(search_job != null && !search_job.isEmpty()) {
+			job_id = dbi.findItemIdByLabel(DatabaseInterface.CATEGORY_JOBS,
+				search_job, languageid);
+			if(job_id == null) {
+				job_id = search_job;
+			}
+		} else {
+			job_id = null;
+		}
+			
+			
 
 		log.info ("ids: state_id: '" + state_id +
 				"' ,city_id: '" + city_id +
