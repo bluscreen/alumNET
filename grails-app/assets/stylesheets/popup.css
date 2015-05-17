@@ -1,8 +1,29 @@
+/* ============================================================
+  LAYOUT FOR POPU-UP
+============================================================ */
+
+/*BASIC LAYOUT*/
+body {
+	max-width: 90%;
+	margin: auto;
+	background-image: url("worl-map.jpg");
+	background-position: 50% 70%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-bottom: 2em;
+}
+
 #header {
 	font-family: "Courier New";
 	font-size: 100px;
 	color: #eee;
 	text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#container {
+	position: relative;
+	max-width: 90%;
+	margin: auto;
+	max-width: 90%;
 }
 
 p {
@@ -13,7 +34,16 @@ p {
 	background-color: #ACA2A2;
 }
 
+a {
+	color: white;
+}
+
+a:hover {
+	color: #cccccc;
+}
+
 /* TABLES */
+
 table {
 	width: 100%;
 }
@@ -31,14 +61,15 @@ tr>td:last-child,tr>th:last-child {
 }
 
 td,th {
-  	padding: 0.2em;
+	padding: 0.2em;
 	text-align: left;
 	vertical-align: top;
-	 
 }
-td { 
+
+td {
 	word-wrap: break-word;
-  word-break: break-all;}
+	word-break: break-all;
+}
 
 th {
 	font-family: "Century Gothic";
@@ -47,35 +78,28 @@ th {
 	font-size: medium;
 }
 
-
-
-#container {
-	position: relative;
-	max-width: 90%;
-	margin: auto;
-	max-width: 90%;
-}
+/*BOXES*/
 
 #textBox {
 	position: relative;
-  width: 45%;
+	width: 45%;
 }
 
 #statisticBox {
-position: relative;
-  margin-top: 10px;
-  background-color: rgba(43, 48, 59, 0.85);
-  width: 45%;
-  bottom: 0;
+	position: relative;
+	margin-top: 10px;
+	background-color: rgba(43, 48, 59, 0.85);
+	width: 45%;
+	bottom: 0;
 }
 
 #alumniBox {
-position: absolute;
-  width: 50%;
-  top: 0;
-  left: 48%;
-  bottom: 0;
-  background-color: rgba(43, 48, 59, 0.85);
+	position: absolute;
+	width: 50%;
+	top: 0;
+	left: 48%;
+	bottom: 0;
+	background-color: rgba(43, 48, 59, 0.85);
 }
 
 .box {
@@ -88,22 +112,4 @@ position: absolute;
 	-moz-box-shadow: 10px 11px 56px -5px rgba(0, 0, 0, 0.75);
 	box-shadow: 10px 11px 60px -5px rgba(0, 0, 0, 0.75);
 	padding: 10px;
-}
-
-body {
-	max-width: 90%;
-	margin: auto;
-	background-image: url("worl-map.jpg");
-	background-position: 50% 70%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	padding-bottom: 2em;
-}
-
-a {
-	color: white;
-}
-
-a:hover {
-	color: #cccccc;
 }

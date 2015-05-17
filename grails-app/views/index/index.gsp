@@ -131,7 +131,8 @@
 				<div id="mapBox">
 					<div id="map"></div>
 				</div>
-				
+				</div>
+			
 				<g:javascript>
 				    var markerArray = null;
 				    var markers = null;

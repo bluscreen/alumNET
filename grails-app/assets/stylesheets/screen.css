@@ -1,7 +1,9 @@
-#page-body {
-	margin: 2em 1em 1.25em 18em;
-}
+/* ============================================================
+  LAYOUT FOR SEARCH-BOX AND MAP
+============================================================ */
 
+
+/*SEARCHBOX*/
 #searchBox {
 	float: left;
 	padding: 1em 1em 1em 1em;
@@ -58,22 +60,14 @@ select:hover {
 	background-color: #cccccc;
 }
 
-option {
+select {
 	border: 1px solid #cccccc;
 	cursor: pointer; 
 }
 
-#map {
-	height: 400px;
-}
-#mapBox {
-	margin-left: 2em;
-}
-
-
 
 #results {
-	width: 15em;
+	width: 13em;
 	max-height: 15em;
 	overflow: auto;
 	cursor: pointer;
@@ -87,4 +81,9 @@ option {
 
 li:hover {
 	  background-color: #DCD9DF;
+}
+
+/*MAP*/
+#map{
+	height: 400px; 
 }
