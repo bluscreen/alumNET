@@ -34,9 +34,11 @@ td,th {
   	padding: 0.2em;
 	text-align: left;
 	vertical-align: top;
-	  word-wrap: break-word;
-  word-break: break-all;
+	 
 }
+td { 
+	word-wrap: break-word;
+  word-break: break-all;}
 
 th {
 	font-family: "Century Gothic";

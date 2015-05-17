@@ -66,7 +66,7 @@
 						<div class="right-top">
 						</div>
 						<div class ="right-infocontainer">
-							<a id="infoLink" href='<g:createLink controller="index" action="info"/>'>${labels.getText(textId.TEXTID_AboutUs.getTextid(), session.getAttribute("systemLanguage"))}</a>
+							<a id="infoLink" class="masterTooltip" title="Read more about us" href='<g:createLink controller="index" action="info"/>'>${labels.getText(textId.TEXTID_AboutUs.getTextid(), session.getAttribute("systemLanguage"))}</a>
 							<b>/</b>
 							<a id="impressum" href='<g:createLink controller="index" action="impressum"/>'>${labels.getText(textId.TEXTID_Imprint.getTextid(), session.getAttribute("systemLanguage"))}</a>
 						</div>
@@ -79,7 +79,7 @@
 				<div id="searchBox">
 					<g:form action="index" method="get"> 
 					<ul><li><g:select id="language" class="masterTooltip" name="systemLanguage"
-								title="Please select the language you wish the search is being performed"
+								title="Please select the language you wish the search is being performed in"
 								onchange="${remoteFunction( action:'updateLanguage',
 					                                          params: '\'lang=\'+escape(this.value)',
 															  onComplete: 'location.reload();')}"
@@ -97,21 +97,21 @@
 								placeholder="${labels.getText(textId.TEXTID_City.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['ort']}" /></li>
 						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
-								title="Please enter the name of the educational institution"
+								title="Please enter the name of the educational institution you are searching for"
 								name="bildungseinrichtung"
 								placeholder="${labels.getText(textId.TEXTID_Education_Institute.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['bildungseinrichtung']}"/></li>
 						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
-								title="Please enter the name of the Alumni"
+								title="Please enter the name of the Alumni you are searching for"
 								name="person"
 								placeholder="${labels.getText(textId.TEXTID_Person.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['person']}"/></li>
 						<li><g:field class="searchfields masterTooltip" maxlength="50" type="text"
-								title="Please enter the profession of the Alumni" 
+								title="Please enter the profession of the Alumni you are searching for" 
 								name="beruf"
 								placeholder="${labels.getText(textId.TEXTID_Job.getTextid(), session.getAttribute("systemLanguage")) }"
 								value="${params['beruf']}"/></li>
-						<li><g:actionSubmitImage id="searchButton" class="masterTooltip"  title="Go!" name="search" value="index"
+						<li><g:actionSubmitImage id="searchButton" class="masterTooltip"  title="Start your search!" name="search" value="index"
                      src="${resource(dir: 'images', file: 'lupe.png')}" /></li>
 					</ul>
 					</g:form>
