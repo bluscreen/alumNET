@@ -43,6 +43,7 @@ body {
 	margin: 0 auto;
 	overflow-x: hidden;
 	/* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
+	padding-bottom: 2em; 
 }
 
 /* ============================================================
@@ -133,65 +134,11 @@ a:hover,a:active {
 	/* prevents outline in webkit on active links but retains it for tab focus */
 }
 
-h1 {
-	color: #48802c;
-	font-weight: normal;
-	font-size: 1.25em;
-}
 
-img {
-	border: 0;
-}
 
 /* GENERAL */
-#grailsLogo a {
-	display: inline-block;
-	margin: 1em;
-}
 
-.content h1 {
-	border-bottom: 1px solid #CCCCCC;
-	margin: 0.8em 1em 0.3em;
-	padding: 0 0.25em;
-}
 
-.scaffold-list h1 {
-	border: none;
-}
-
-.header {
-	color: #000;
-	clear: both;
-	font-size: 0.8em;
-	margin-top: 1.5em;
-	padding: 1em;
-	min-height: 1em;
-}
-
-.footer {
-	background: #b6b6b6;
-	color: #000;
-	clear: both;
-	font-size: 0.8em;
-	margin-top: 1.5em;
-	padding: 1em;
-	min-height: 1em;
-}
-
-.footer a {
-	color: #255b17;
-}
-
-.spinner {
-	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
-	height: 16px;
-	width: 16px;
-	padding: 0.5em;
-	position: absolute;
-	right: 0;
-	top: 0;
-	text-indent: -9999px;
-}
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */
 fieldset,.property-list {
@@ -240,7 +187,9 @@ input,select,textarea {
 }
 
 select {
-	padding: 0.2em 0.2em 0.2em 0;
+	padding: 0.2em 0.2em 0.2em 0.2em;
+	border: 1px solid #cccccc;
+	cursor: pointer; 
 }
 
 select[multiple] {

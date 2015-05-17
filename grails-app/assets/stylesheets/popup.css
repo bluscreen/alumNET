@@ -6,12 +6,46 @@
 }
 
 p {
-	font-family: "Courier New";
+	font-family: "Century Gothic";;
 	font-size: 20pt;
 	color: #eee;
 	margin: 0 0 1em;
 	background-color: #ACA2A2;
 }
+
+/* TABLES */
+table {
+	width: 100%;
+}
+
+tr {
+	border: 0;
+}
+
+tr>td:first-child,tr>th:first-child {
+	padding-left: 0.6em;
+}
+
+tr>td:last-child,tr>th:last-child {
+	padding-right: 0.6em;
+}
+
+td,th {
+  	padding: 0.2em;
+	text-align: left;
+	vertical-align: top;
+	  word-wrap: break-word;
+  word-break: break-all;
+}
+
+th {
+	font-family: "Century Gothic";
+	background-color: #ACA2A2;
+	font-weight: normal;
+	font-size: medium;
+}
+
+
 
 #container {
 	position: relative;
@@ -31,18 +65,15 @@ p {
 	margin-top: 10px;
 	background-color: rgba(43, 48, 59, 0.85);
 	width: 50%;
-}
-
-#statistenBox {
-	
+	bottom: 0;
 }
 
 #alumniBox {
 	position: absolute;
-	height: 97.1%;
 	width: 46%;
 	top: 0;
 	left: 53%;
+	bottom: 0;
 	background-color: rgba(43, 48, 59, 0.85);
 }
 
@@ -72,10 +103,6 @@ a {
 	color: white;
 }
 
-a: hover {
-	color: #cccccc;
-}
-
-a: visited {
+a:hover {
 	color: #cccccc;
 }

@@ -57,52 +57,51 @@
 			</p>
 			<table>
 				<tr>
-					<td>
+					<th>
 						${labels.getText(textId.TEXTID_Name.getTextid(), session.getAttribute("systemLanguage"))}:
-					</td>
+					</th>
 					<td>
 						${educationInstitute?.name}
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<th>
 						${labels.getText(textId.TEXTID_Description.getTextid(), session.getAttribute("systemLanguage"))}:
-					</td>
+					</th>
 					<td>
 						${educationInstitute?.educationInstituteDescription}
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<th>
 						${labels.getText(textId.TEXTID_Year_Of_Foundation.getTextid(), session.getAttribute("systemLanguage"))}:
-					</td>
+					</th>
 					<td>
 						${educationInstitute?.yearOfFoundation}
 					</td>
 				</tr>
 				<tr>
-					<td>Wiki-Link:</td>
+					<th>Wiki-Link:</th>
 					<td><a href="${educationInstitute?.wikipediaHyperlink}"
 						target="_blank"> ${educationInstitute?.wikipediaHyperlink}
 					</a></td>
 				</tr>
 				<tr>
-					<td>
+					<th>
 						${labels.getText(textId.TEXTID_EMail.getTextid(), session.getAttribute("systemLanguage"))}:
-					</td>
+					</th>
 					<td>
 						${educationInstitute?.email}
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<th>
 						${labels.getText(textId.TEXTID_Address.getTextid(), session.getAttribute("systemLanguage"))}:
-					</td>
+					</th>
 					<td>
-						${educationInstitute?.streetAndHouseNumber}
-					</td>
-					<td>
-						${educationInstitute?.zipCode} ${educationInstitute?.city }
+						${educationInstitute?.streetAndHouseNumber},
+						${educationInstitute?.zipCode}
+						${educationInstitute?.city }
 					</td>
 				</tr>
 			</table>
@@ -114,29 +113,29 @@
 				${educationInstitute?.alumnusList?.size()}
 			</p>
 			<g:if test="${educationInstitute?.alumnusList?.size() > 0}">
-			<table>
-				<tr>
-					<td>
-						${labels.getText(textId.TEXTID_Name.getTextid(), session.getAttribute("systemLanguage"))}
-					</td>
-					<td>
-						${labels.getText(textId.TEXTID_Job.getTextid(), session.getAttribute("systemLanguage"))}
-					</td>
-					<td>Wiki-Link</td>
-				</tr>
-				<g:each var="i" in="${educationInstitute?.alumnusList}">
+				<table>
 					<tr>
-						<td>
-							${i.alumniName}
-						</td>
-						<td>
-							${i.jobTitle}
-						</td>
-						<td><a href="${i.wikipediaHyperlink}" target="_blank"> ${i.wikipediaHyperlink}
-						</a></td>
+						<th>
+							${labels.getText(textId.TEXTID_Name.getTextid(), session.getAttribute("systemLanguage"))}
+						</th>
+						<th>
+							${labels.getText(textId.TEXTID_Job.getTextid(), session.getAttribute("systemLanguage"))}
+						</th>
+						<th>Wiki-Link</th>
 					</tr>
-				</g:each>
-			</table>
+					<g:each var="i" in="${educationInstitute?.alumnusList}">
+						<tr>
+							<td>
+								${i.alumniName}
+							</td>
+							<td>
+								${i.jobTitle}
+							</td>
+							<td><a href="${i.wikipediaHyperlink}" target="_blank"> ${i.wikipediaHyperlink}
+							</a></td>
+						</tr>
+					</g:each>
+				</table>
 			</g:if>
 		</div>
 

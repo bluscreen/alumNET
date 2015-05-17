@@ -1,7 +1,11 @@
 @CHARSET "ISO-8859-1";
 body {
 	
-	padding: 40px;
+	max-width: 90%;
+	margin: auto;
+	background-image: url("worl-map.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 li

@@ -75,11 +75,10 @@
 		</div> 
 	
 		<div class="container">
-				<a href="#page-body" class="skip"><g:message
-						code="default.link.skip.label" default="Skip to content&hellip;" /></a>
-				<div id="searchBox" class="Box">
+			
+				<div id="searchBox">
 					<g:form action="index" method="get"> 
-					<ul><li><g:select id="language" class="searchfields masterTooltip" name="systemLanguage"
+					<ul><li><g:select id="language" class="masterTooltip" name="systemLanguage"
 								title="Please select the language you wish the search is being performed"
 								onchange="${remoteFunction( action:'updateLanguage',
 					                                          params: '\'lang=\'+escape(this.value)',
@@ -118,11 +117,11 @@
 					</g:form>
 					
 					<g:if test="${renderList}">
-					<ul style="width:15em; overflow:auto;cursor: pointer">
-						<li class="masterTooltip " title="Your search returned ${institutes.size()} results:">${institutes.size()} results</li>
+					<ul id="results">
+						<li class="masterTooltip " title="Your search returned ${institutes.size()} result(s)">${institutes.size()} result(s)</li>
 <!--						${indexCounter = -1}  -->
 						<g:each var="i" in="${institutes}">
-						<li class="results" onclick="zoomToMarker(${++indexCounter})">
+						<li onclick="zoomToMarker(${++indexCounter})">
 								${i.name}, ${i.city}
 						</li>
 						</g:each>

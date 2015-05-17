@@ -5,7 +5,7 @@
 </head>
 
 <body>
-	<h1>Thank you for using alumNet! </h1>
+	<h1>Thank you for using alumNET! </h1>
 	<h2>The instructions bellow will guide you step by step through our WebSite.</h2>
 	<ul><li>In the language drop down you are able to select a language
 		you wish the search is being performed in. The search fields in the
