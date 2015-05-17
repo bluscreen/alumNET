@@ -74,7 +74,7 @@ option {
 
 #results {
 	width: 15em;
-	max-height: 5em;
+	max-height: 15em;
 	overflow: auto;
 	cursor: pointer;
 	

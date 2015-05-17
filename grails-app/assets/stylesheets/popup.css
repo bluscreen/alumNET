@@ -58,25 +58,24 @@ th {
 
 #textBox {
 	position: relative;
-	width: 50%;
-	height: 15em;
+  width: 45%;
 }
 
 #statisticBox {
-	position: relative;
-	margin-top: 10px;
-	background-color: rgba(43, 48, 59, 0.85);
-	width: 50%;
-	bottom: 0;
+position: relative;
+  margin-top: 10px;
+  background-color: rgba(43, 48, 59, 0.85);
+  width: 45%;
+  bottom: 0;
 }
 
 #alumniBox {
-	position: absolute;
-	width: 46%;
-	top: 0;
-	left: 53%;
-	bottom: 0;
-	background-color: rgba(43, 48, 59, 0.85);
+position: absolute;
+  width: 50%;
+  top: 0;
+  left: 48%;
+  bottom: 0;
+  background-color: rgba(43, 48, 59, 0.85);
 }
 
 .box {
