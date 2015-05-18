@@ -8,7 +8,7 @@ import org.springframework.web.servlet.support.RequestContextUtils
 /**
  * @author dhammacher
  * UI presenter class for providing data from the GlobalDAO to the UI
- * session scoped bean per default config.
+ * session scoped bean per config
  *
  */
 class IndexController {
@@ -21,39 +21,57 @@ class IndexController {
 	 * @return
 	 */
 	def index() {
-		log.info "index() called"
+		log.debug "index() called"
 		checkLanguageSet()
-		
+
+		List<EducationInstitute> searchResult = []
+
 		String staat = params['staat']
 		String ort = params['ort']
 		String bildEin = params['bildungseinrichtung']
 		String person = params['person']
 		String beruf = params['beruf']
 
-		// Look if no search parameters are set
+		/**
+		 *  Look if no search parameters are set
+		 */
 		boolean searchAll = ((staat == null || staat == "")
 				&& (ort == null || ort == "")
 				&& (bildEin == null || bildEin == "")
 				&& (person == null || person == "")
 				&& (beruf == null ||beruf == ""))
 
-		List<EducationInstitute> searchResult = []
+		/**
+		 *  this flag will determine if the resultlist in left bottom corner is to be rendered.
+		 */
 		boolean rendList = true;
+
 		if(searchAll) {
 			rendList = false;
-			// user is here for the first time
+			/**
+			 * user is here for the first time or has not enteres search criteria
+			 */
 			List<EducationInstituteBasicInformation> allResults = GlobalDAO.instance.getAllEducationInstitutes()
 			allResults.each { e->
+				/**
+				 *  here we retrieve additional information for the bubbles 
+				 *  attached to the markers, as no action listener could be 
+				 *  implemented in short term as onclick for the bubble.
+				 *  
+				 *  --> performance bottleneck
+				 */
 				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
 				if(ei == null){
-					log.info "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
+					log.debug "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
 				}else{
 					searchResult.add(ei)
 				}
 			}
 		}
 		else {
-			// user entered search param(s)
+			/**
+			 *  user entered search param(s)
+			 */
 			searchResult = GlobalDAO.instance.searchEducationInstitutes(
 					staat,
 					ort,
@@ -64,9 +82,11 @@ class IndexController {
 		}
 
 		int foundAmount = searchResult.size()
-		log.info "search returned " + foundAmount + " results, printing:"
+		log.debug "search returned " + foundAmount + " results, printing:"
 
-		// Build a String containing all coordinates with their id in JSON
+		/**
+		 *  Build a String containing all coordinates with their id in a js array
+		 */
 		String markerString = "", line = ""
 		searchResult.eachWithIndex { elem, idx->
 			line = "[" + elem.latitude + ", " + elem.longitude + ", \"" + elem.id + "\", \"" + elem.name +"\", \"" + elem.city + "\"]"
@@ -76,6 +96,11 @@ class IndexController {
 
 		log.debug "markerString: " + markerString
 
+		/**
+		 *  future task:
+		 *  labels should not return the whole dao instance, 
+		 *  the gettext method should be implemented in a dedicated bean
+		 */
 		[languages: GlobalDAO.instance.getLanguagesList(),
 			labels: GlobalDAO.instance,
 			textId: TextId,
@@ -90,9 +115,9 @@ class IndexController {
 	 * @return
 	 */
 	def updateLanguage() {
-		log.info "updateLanguage() called"
+		log.debug "updateLanguage() called"
 		def locale = RequestContextUtils.getLocale(request)
-		log.info "spring determined language: " + locale.getLanguage()
+		log.debug "spring determined language: " + locale.getLanguage()
 		if(params['lang'] == null || params['lang' == ""]) {
 			GlobalDAO.instance.getLanguagesList().each {i->
 				log.debug i.getLanguageId()
@@ -104,7 +129,7 @@ class IndexController {
 		else{
 			session.setAttribute("systemLanguage", params['lang'])
 		}
-		log.info "session language:" + session.getAttribute("systemLanguage")
+		log.debug "session language:" + session.getAttribute("systemLanguage")
 	}
 
 	/**
@@ -115,7 +140,7 @@ class IndexController {
 	 * @return
 	 */
 	def popup() {
-		log.info "popup() called"
+		log.debug "popup() called"
 		checkLanguageSet()
 
 		EducationInstitute edu
@@ -139,37 +164,37 @@ class IndexController {
 			return
 		}
 
-		log.error "params:"
+		log.debug "params:"
 		params.each {i->
-			log.info "__"+ i
+			log.debug "__"+ i
 		}
 
-		// DH 12.05. still no data from DB.. mocking it for ID Q219563
-		if(edu?.id == "Q219563")
-		{
-			log.info "Q219563 MOCKMOCKMOCK!!! BOCK"
-			JobStatisticDataset js1 = new JobStatisticDataset("Doenermann", 2)
-			JobStatisticDataset js2 = new JobStatisticDataset("Gyrosmann", 3)
-			JobStatisticDataset js3 = new JobStatisticDataset("Taxifahrer", 1)
-
-			List<JobStatisticDataset> jsdl = new ArrayList<JobStatisticDataset>()
-			jsdl.addAll(js1,js2,js3)
-
-			Alumnus a1 = new Alumnus("Sir Dönalot", "Doenermann", "http://www.doener.de")
-			Alumnus a2 = new Alumnus("YUFKALORD", "Doenermann", "http://www.yufka.de")
-
-			Alumnus a3 = new Alumnus("GYROSLAND", "Gyrosmann", "http://www.gyros.de")
-			Alumnus a4 = new Alumnus("Sir Taki", "Gyrosmann", "http://www.sir-taki.de")
-			Alumnus a5 = new Alumnus("AGGRO-POLICE", "Gyrosmann", "http://www.aggro-police.de")
-
-			Alumnus a6 = new Alumnus("Mahatma Taxi", "Taxifahrer", "http://www.mahatma.de")
-
-			List<Alumnus> al = new ArrayList<Alumnus>()
-			al.addAll(a1,a2,a3,a4,a5,a6)
-
-			edu.jobStatisticList = jsdl
-			edu.alumnusList = al
-		}
+		//		// DH 12.05. still no data from DB.. mocking it for ID Q219563
+		//		if(edu?.id == "Q219563")
+		//		{
+		//			log.debug "Q219563 MOCKMOCKMOCK!!! BOCK"
+		//			JobStatisticDataset js1 = new JobStatisticDataset("Doenermann", 2)
+		//			JobStatisticDataset js2 = new JobStatisticDataset("Gyrosmann", 3)
+		//			JobStatisticDataset js3 = new JobStatisticDataset("Taxifahrer", 1)
+		//
+		//			List<JobStatisticDataset> jsdl = new ArrayList<JobStatisticDataset>()
+		//			jsdl.addAll(js1,js2,js3)
+		//
+		//			Alumnus a1 = new Alumnus("Sir Dönalot", "Doenermann", "http://www.doener.de")
+		//			Alumnus a2 = new Alumnus("YUFKALORD", "Doenermann", "http://www.yufka.de")
+		//
+		//			Alumnus a3 = new Alumnus("GYROSLAND", "Gyrosmann", "http://www.gyros.de")
+		//			Alumnus a4 = new Alumnus("Sir Taki", "Gyrosmann", "http://www.sir-taki.de")
+		//			Alumnus a5 = new Alumnus("AGGRO-POLICE", "Gyrosmann", "http://www.aggro-police.de")
+		//
+		//			Alumnus a6 = new Alumnus("Mahatma Taxi", "Taxifahrer", "http://www.mahatma.de")
+		//
+		//			List<Alumnus> al = new ArrayList<Alumnus>()
+		//			al.addAll(a1,a2,a3,a4,a5,a6)
+		//
+		//			edu.jobStatisticList = jsdl
+		//			edu.alumnusList = al
+		//		}
 
 		String jobStats = ""
 		if(edu != null){
@@ -177,7 +202,7 @@ class IndexController {
 				jobStats += "['" + num.jobTitle + "'," + num.number + "]"
 				if(idx<edu.jobStatisticList.size()-1) jobStats += ",\n"
 			}
-			log.info "controller popup() call finished. return."
+			log.debug "controller popup() call finished. return."
 			[educationInstitute: edu,
 				jsdString: jobStats,
 				labels: GlobalDAO.instance,
@@ -191,34 +216,6 @@ class IndexController {
 		}
 	}
 
-	@Deprecated
-	def fetchName(){
-		log.info "fetchName() called"
-
-		def id = params['id']
-
-		log.info "params:"
-		params.each {i->
-			log.info "__"+ i
-		}
-
-		if(id == null){
-			id=1;
-		}
-		[educationInstitute: GlobalDAO.instance.getEducationInstituteById(id, session.getAttribute("systemLanguage"))]
-
-	}
-
-	def info()
-	{
-
-	}
-
-	def impressum()
-	{
-
-	}
-
 	def checkLanguageSet(){
 		if(session.getAttribute("systemLanguage") == null || session.getAttribute("systemLanguage") == "") {
 			log.debug "systemLanguage is null or empty: call updateLanguage to try to determine it"
@@ -226,4 +223,15 @@ class IndexController {
 		}
 		log.debug "system language:" + session.getAttribute("systemLanguage")
 	}
+
+	def info()
+	{
+
+	}
+
+//	def impressum()
+//	{
+//
+//	}
+
 }

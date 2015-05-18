@@ -75,19 +75,15 @@ body {
 }
 
 .right {
-	
-}
-
-.right-infocontainer {
+	position: absolute; 
+	font-size: 20px;
+	top: 2em;
+  	padding-left: 0.8em;
+	display: inline;
 	font-family: "Monospace";
 	height: 100%;
-	font-size: 20px;
+	
 	color: rgba(250, 250, 250, 0.8);
-	display: inline;
-	padding-left: 30px;
-}
-
-.right-top {
 	height: 2.5em;
 }
 

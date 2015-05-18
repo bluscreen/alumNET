@@ -5,26 +5,23 @@
 </head>
 
 <body>
-	<h1>Thank you for using alumNET! </h1>
-	<h2>The instructions bellow will guide you step by step through our WebSite.</h2>
-	<ul><li>In the language drop down you are able to select a language
-		you wish the search is being performed in. The search fields in the
-		search box will be automatically translated into the selected
-		language.</li>
-	<li>The search box contains 5 search fields which represent 5
-		different search criterias. You can filter your search by entering:
-		<br>the state of the educational institution 
-		<br>the city of the educational institution 
-		
-		<br>the name of the educational institution 
-		<br>the name of the person 
-		<br>the profession
-	</li>
-	<li>To start the search please press the button with the
-		magnifier.</li>
-	<li>The results of the search will be listed below the search box and marked with markers on the map.
-	<li>By clicking on the marker a bubble will pop up with basic information about the educational institute. By clicking on the details button 
-	a new page will show up with detailed information about the educational institute.</li>
-	</ul>
+
+
+<div id="text"><p>Im Folgende möchten Wir Ihnen gerne eine kurze Erläuterung geben, wie es denn eigentlich zur Umsetzung dieses Anwendungsprojektes kam.
+Die Planung und Umsetzung wurde im Rahmen eines Seminars zu Methoden der Wirtschaftsinformatik im fünften Semester des Studienganges Wirtschaftsinformatik an der Dualen Hochschule Karlsruhe durchgeführt.</p>
+Die Gruppe von 10 Personen hat sich in drei Teams aufgeteilt. Die Datenbeschaffung, Applikation und das Marketing.
+
+<p>Ziel des Projekts 
+Im Rahmen des Projekts soll eine Webanwendung entwickelt werden, 
+die auf Basis der frei verfügbaren Daten in WikiData Studieninteressierten weltweit Bildungseinrichtungen in der Umgebung aufzeigt, und Analysen über Berufe und Karrierewege bekannter Absolventen ermöglicht. </p>
+
+<p>Aufgabenstellung 
+Im Rahmen des Projekts soll das Team das Folgende leisten: Zugriff und Aktualisierung Das System soll Zugriff auf die Daten von Wikidata erhalten und regelmäßig aktualisiert werden können. Konsolidierung Datensätze in Wikidata haben teilweise eine sehr unterschiedliche Datenqualität, zum Beispiel haben nicht alle Bildungseinrichtungen direkte Ortsinformationen, es fehlen Sprachinformationen oder Einstufungen. Über automatisierte Regeln sollen aus den Daten ableitbare Informationen vervollständigt oder passende Ersatzangaben ergänzt werden, und etwaig vorhandene Berufshierachien berücksichtigt werden.</p> 
+
+<p>Analyse und Abfrage 
+Die Bildungseinrichtungen sollen nach den Berufen und Karrierewegen der verzeichneten Absolventen analysiert werden, d.h. Berufsstatistiken für jede Einrichtung erstellt werden. Für einen gegebenen geographischen Bereich sollen alle Bildungseinrichtungen, evtl. gefiltert nach Berufen oder Typ, abrufbar sein, und zu jeder Bildungseinrichtung deren bekannten Alumni, sowie zu Bildungseinrichtungen und Alumni weitere Informationen abrufbar sein.</p>
+
+<p>Das Team wünscht viel Erfolg bei der Suche nach einer geeigneten Studieninstitution.</p></div>
+	
 </body>
 </html>

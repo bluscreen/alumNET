@@ -63,13 +63,11 @@
 			<div class="stripe">
 				<div class="left">alumNET</div>
 					<div class="right">
-						<div class="right-top">
-						</div>
-						<div class ="right-infocontainer">
-							<a id="infoLink" class="masterTooltip" title="Read more about us" href='<g:createLink controller="index" action="info"/>'>${labels.getText(textId.TEXTID_AboutUs.getTextid(), session.getAttribute("systemLanguage"))}</a>
-							<b>/</b>
-							<a id="impressum" href='<g:createLink controller="index" action="impressum"/>'>${labels.getText(textId.TEXTID_Imprint.getTextid(), session.getAttribute("systemLanguage"))}</a>
-						</div>
+			
+							<a id="infoLink" class="masterTooltip" title="Read more about us and the story behind alumNET" href='<g:createLink controller="index" action="info"/>'>${labels.getText(textId.TEXTID_AboutUs.getTextid(), session.getAttribute("systemLanguage"))}</a>
+<%--							<b>/</b>--%>
+<%--							<a id="impressum" href='<g:createLink controller="index" action="impressum"/>'>${labels.getText(textId.TEXTID_Imprint.getTextid(), session.getAttribute("systemLanguage"))}</a>--%>
+				
 					</div>
 			</div>
 		</div> 

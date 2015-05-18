@@ -10,11 +10,11 @@ public enum TextId {
 	TEXTID_Year_Of_Foundation("P571"),
 	TEXTID_Phone("P1329"),
 	TEXTID_Alumni("Q508719"),
-	TEXTID_Address("P319608"),
+	TEXTID_Address("Q319608"),
 	TEXTID_EMail("P968"),
-	TEXTID_Description(""), // TODO Define this
-	TEXTID_AboutUs(""), // TODO Define this
-	TEXTID_Imprint(""), // TODO Define this
+	TEXTID_Description("Q829624"), 
+	TEXTID_AboutUs("Q4668607"),
+	TEXTID_Imprint("Q1075810"), 
 	TEXTID_Error("Q29485");
 	
 	private final String textid;

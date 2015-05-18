@@ -1,20 +1,25 @@
 @CHARSET "ISO-8859-1";
+
 body {
-	
-	max-width: 90%;
+	max-width: 80%;
 	margin: auto;
 	background-image: url("worl-map.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-li
-{	font-size: 15pt;
-	padding-left: 50px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	border-top: 1px solid #DFDFDF;
-}
-ul{
-	width: 700px; 
+#text {
+	margin-top: 2em;
+	margin-bottom: 2em;
+	font-size: 16pt;
+	color: white;
+	font-family: "Monospace";
+	padding: 3em;
+	text-align: justify;
+	background-color: rgba(43, 48, 59, 0.8);
+	border: 1px solid gray;
+	border-radius: 2px 2px 2px 2px;
+	-webkit-box-shadow: 10px 11px 56px -5px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 11px 56px -5px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 11px 60px -5px rgba(0, 0, 0, 0.75);
 }
