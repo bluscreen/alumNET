@@ -69,7 +69,7 @@ td,th {
 
 td {
 	word-wrap: break-word;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 th {
@@ -78,13 +78,8 @@ th {
 	font-weight: normal;
 	font-size: medium;
 	word-wrap: break-word;
-	word-break: break-all;
+	word-break: break-word;
 }
-
-#textBox th{
-	
-}
-
 
 /*BOXES*/
 
@@ -120,12 +115,4 @@ th {
 	-moz-box-shadow: 10px 11px 56px -5px rgba(0, 0, 0, 0.75);
 	box-shadow: 10px 11px 60px -5px rgba(0, 0, 0, 0.75);
 	padding: 10px;
-}
-
-#alumniBox a {
-	display: block; 
-	width: 16em;
-	white-space: nowrap;
- 	overflow: hidden;
-	text-overflow: ellipsis;
 }

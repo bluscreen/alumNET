@@ -26,8 +26,6 @@
 	       		 
 		        var options = {
 		          backgroundColor: 'transparent',
-		          width: '600',
-		          height: '400',
 		          color: 'white',
 		          legend: {textStyle: {color: 'white', fontSize: '14'}},
 		          is3D: true,
@@ -99,8 +97,7 @@
 						${labels.getText(textId.TEXTID_Address.getTextid(), session.getAttribute("systemLanguage"))}:
 					</th>
 					<td>
-						${educationInstitute?.streetAndHouseNumber},
-						${educationInstitute?.zipCode}
+						${educationInstitute?.streetAndHouseNumber}, ${educationInstitute?.zipCode}
 						${educationInstitute?.city }
 					</td>
 				</tr>
@@ -131,8 +128,11 @@
 							<td>
 								${i.jobTitle}
 							</td>
-							<td><a href="${i.wikipediaHyperlink}" target="_blank"> ${i.wikipediaHyperlink}
-							</a></td>
+							<td><g:if
+									test="${(i.wikipediaHyperlink != null && !i.wikipediaHyperlink.empty)}">
+									<a href="${i.wikipediaHyperlink}" target="_blank">&raquo;
+										Link</a>
+								</g:if></td>
 						</tr>
 					</g:each>
 				</table>
@@ -140,7 +140,7 @@
 		</div>
 
 		<div id="statisticBox" class="box">
-			<p>Statistics</p>
+			<p>${labels.getText(textId.TEXTID_Statistic.getTextid(), session.getAttribute("systemLanguage"))}</p>
 			<div id="statistenBox"></div>
 		</div>
 

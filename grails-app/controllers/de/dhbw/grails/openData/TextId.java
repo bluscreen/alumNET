@@ -15,6 +15,7 @@ public enum TextId {
 	TEXTID_Description("Q829624"), 
 	TEXTID_AboutUs("Q4668607"),
 	TEXTID_Imprint("Q1075810"), 
+	TEXTID_Statistic("Q2333935"),
 	TEXTID_Error("Q29485");
 	
 	private final String textid;
