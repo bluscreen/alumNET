@@ -33,7 +33,7 @@ public class GlobalDAO {
 	 * @return a list containing a Language object of each supported language
 	 */
 	public List<Language> getLanguagesList() {
-		log.debug "getLanguagesList() called"
+		log.info "getLanguagesList() called"
 		if (languageList == null) {
 			DatabaseInterface dbi = DatabaseInterface.getInstance();
 			languageList = dbi.findLanguagesList();
@@ -67,7 +67,7 @@ public class GlobalDAO {
 	 * @return the requested text in the requested language or null
 	 */
 	public String getText(String textid, String languageid) {
-		log.debug "getText() called: textid:'" + textid + "', languageid: '" + languageid + "'" 
+		log.info "getText() called: textid:'" + textid + "', languageid: '" + languageid + "'" 
 		// Use the concatenated textid + languageid as key for caching
 		String key = textid + languageid;
 
@@ -111,8 +111,8 @@ public class GlobalDAO {
 			String search_state, String search_city,
 			String search_educationInstitute, String search_alumnus,
 			String search_job, String languageid) {
-		log.debug "searchEducationInstitutes() called"
-		log.debug ("params: search_state: '" + search_state +
+		log.info "searchEducationInstitutes() called"
+		log.info ("params: search_state: '" + search_state +
 				"' ,search_city: '" + search_city +
 				"' ,search_educationInstitute: '" + search_educationInstitute +
 				"' ,search_alumnus: '" + search_alumnus +
@@ -121,7 +121,7 @@ public class GlobalDAO {
 
 		DatabaseInterface dbi = DatabaseInterface.getInstance();
 
-		log.debug "DatabaseInterface instance:" + dbi
+		log.info "DatabaseInterface instance:" + dbi
 
 		/* If the search field is null or empty --> wildcard (null value)
 		 * If the search value is invalid (like the user enters "blablabla" or "Q123")
@@ -186,7 +186,7 @@ public class GlobalDAO {
 			
 			
 
-		log.debug ("ids: state_id: '" + state_id +
+		log.info ("ids: state_id: '" + state_id +
 				"' ,city_id: '" + city_id +
 				"' ,educationInstitute_id: '" + educationInstitute_id +
 				"' ,alumnus_id: '" + alumnus_id +
@@ -203,14 +203,14 @@ public class GlobalDAO {
 					.findEducationInstituteById(educationInstituteid, languageid);
 			educationInstitutes.add(educationInstitute);
 		}
-		log.debug "educationInstituteIds:"
+		log.info "educationInstituteIds:"
 		educationInstituteids.eachWithIndex { e, idx ->
-			log.debug "[" + idx + "]: " + e
+			log.info "[" + idx + "]: " + e
 		}
 		
-		log.debug "educationInstitutes:"
+		log.info "educationInstitutes:"
 		educationInstitutes.eachWithIndex { e, idx ->
-			log.debug "[" + idx + "]: " + e
+			log.info "[" + idx + "]: " + e
 		}
 
 		return educationInstitutes;
@@ -222,7 +222,7 @@ public class GlobalDAO {
 	 *         institutes
 	 */
 	public List<EducationInstituteBasicInformation> getAllEducationInstitutes() {
-		log.debug "getAllEducationInstitutes() called"
+		log.info "getAllEducationInstitutes() called"
 		DatabaseInterface dbi = DatabaseInterface.getInstance();
 		return dbi.findAllEducationInstitutes();
 	}
@@ -237,11 +237,11 @@ public class GlobalDAO {
 	 */
 	public EducationInstitute getEducationInstituteById(
 			String educationInstituteid, String languageid) {
-		log.debug "getEducationInstitutesById() called"
+		log.info "getEducationInstitutesById() called"
 		DatabaseInterface dbi = DatabaseInterface.getInstance();
-		log.debug "findEducatonInstituteById(" + educationInstituteid + "," + languageid + ")"
+		log.info "findEducatonInstituteById(" + educationInstituteid + "," + languageid + ")"
 		EducationInstitute ei = dbi.findEducationInstituteById(educationInstituteid, languageid);
-		log.debug "educationinstitute.toString(): " + ei
+		log.info "educationinstitute.toString(): " + ei
 		return ei
 	}
 
@@ -255,14 +255,14 @@ public class GlobalDAO {
 	 */
 	public List<JobStatisticDataset> getJobStatisticDatasetsByEducationInstituteid(
 			String educationInstituteid, String languageid) {
-		log.debug "getJobStatisticDatasetsByEducationInstituteId() called"
+		log.info "getJobStatisticDatasetsByEducationInstituteId() called"
 		DatabaseInterface dbi = DatabaseInterface.getInstance();
 		List<JobStatisticDataset> jsd = dbi.findJobStatisticDatasetsByEducationInstituteid(educationInstituteid, languageid)
-		log.debug "printing jobstatisticdatasets:"
+		log.info "printing jobstatisticdatasets:"
 		jsd.each { j ->
-			log.debug j
+			log.info j
 		}
-		log.debug "...done"
+		log.info "...done"
 		return jsd
 	}
 }

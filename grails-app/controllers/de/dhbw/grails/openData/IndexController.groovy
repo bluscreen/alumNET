@@ -25,7 +25,7 @@ class IndexController {
 	 * @return
 	 */
 	def index() {
-		log.debug "index() called"
+		log.info "index() called"
 		checkLanguageSet()
 
 		List<EducationInstitute> searchResult = []
@@ -68,7 +68,7 @@ class IndexController {
 				 */
 				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
 				if(ei == null){
-					log.debug "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
+					log.info "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
 				}else{
 					searchResult.add(ei)
 				}
@@ -88,24 +88,30 @@ class IndexController {
 		}
 
 		int foundAmount = searchResult.size()
-		log.debug "search returned " + foundAmount + " results, printing:"
+		log.info "search returned " + foundAmount + " results, printing:"
 
 		/**
 		 *  Build a String containing all coordinates with their id in a js array
 		 */
 		String markerString = "", line = ""
-		searchResult?.eachWithIndex { elem, idx->
-			if(elem != null) {
+		def badItems = []
+		searchResult.eachWithIndex { elem, idx->
+			if(elem != null && (elem.name != null && !elem.name.isEmpty() && elem.city != null && !elem.city.isEmpty())) {
 				line = "[" + elem?.latitude + ", " + elem?.longitude + ", \"" + elem?.id + "\", \"" + elem?.name +"\", \"" + elem?.city + "\"]"
 				line += ((idx+1)<foundAmount) ? ",\n" : "\n"
 				markerString += line
 			}
 			else {
-				log.error "NPE in resultset at index " + idx
+				log.error "NPE in resultset at index " + idx + " elem: " + elem
+				badItems << elem
 			}
 		}
+		/**
+		 * remove null etc objects from searchresult
+		 */
+		searchResult.removeAll(badItems)
 
-		log.debug "markerString: " + markerString
+		log.info "markerString: " + markerString
 
 		/**
 		 *  TODO future task:
@@ -126,12 +132,12 @@ class IndexController {
 	 * @return
 	 */
 	def updateLanguage() {
-		log.debug "updateLanguage() called"
+		log.info "updateLanguage() called"
 		def locale = RequestContextUtils.getLocale(request)
-		log.debug "spring determined language: " + locale.getLanguage()
+		log.info "spring determined language: " + locale.getLanguage()
 		if(params['lang'] == null || params['lang' == ""]) {
 			GlobalDAO.instance.getLanguagesList().each {i->
-				log.debug i.getLanguageId()
+				log.info i.getLanguageId()
 				if(i.getLanguageId()==locale.getLanguage()){
 					session.setAttribute("systemLanguage", i.getLanguageId())
 				}
@@ -140,7 +146,7 @@ class IndexController {
 		else{
 			session.setAttribute("systemLanguage", params['lang'])
 		}
-		log.debug "session language:" + session.getAttribute("systemLanguage")
+		log.info "session language:" + session.getAttribute("systemLanguage")
 	}
 
 	/**
@@ -151,7 +157,7 @@ class IndexController {
 	 * @return
 	 */
 	def popup() {
-		log.debug "popup() called"
+		log.info "popup() called"
 		checkLanguageSet()
 
 		EducationInstitute edu
@@ -175,15 +181,15 @@ class IndexController {
 			return
 		}
 
-		log.debug "params:"
+		log.info "params:"
 		params.each {i->
-			log.debug "__"+ i
+			log.info "__"+ i
 		}
 
 		//		// DH 12.05. still no data from DB.. mocking it for ID Q219563
 		//		if(edu?.id == "Q219563")
 		//		{
-		//			log.debug "Q219563 MOCKMOCKMOCK!!! BOCK"
+		//			log.info "Q219563 MOCKMOCKMOCK!!! BOCK"
 		//			JobStatisticDataset js1 = new JobStatisticDataset("Doenermann", 2)
 		//			JobStatisticDataset js2 = new JobStatisticDataset("Gyrosmann", 3)
 		//			JobStatisticDataset js3 = new JobStatisticDataset("Taxifahrer", 1)
@@ -213,7 +219,7 @@ class IndexController {
 				jobStats += "['" + num.jobTitle + "'," + num.number + "]"
 				if(idx<edu.jobStatisticList.size()-1) jobStats += ",\n"
 			}
-			log.debug "controller popup() call finished. return."
+			log.info "controller popup() call finished. return."
 			[educationInstitute: edu,
 				jsdString: jobStats,
 				labels: GlobalDAO.instance,
@@ -229,10 +235,10 @@ class IndexController {
 
 	def checkLanguageSet(){
 		if(session.getAttribute("systemLanguage") == null || session.getAttribute("systemLanguage") == "") {
-			log.debug "systemLanguage is null or empty: call updateLanguage to try to determine it"
+			log.info "systemLanguage is null or empty: call updateLanguage to try to determine it"
 			updateLanguage()
 		}
-		log.debug "system language:" + session.getAttribute("systemLanguage")
+		log.info "system language:" + session.getAttribute("systemLanguage")
 	}
 
 	def info()

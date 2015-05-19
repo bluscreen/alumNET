@@ -52,7 +52,7 @@ class Database {
 		Path myDir = Paths.get(confPath)
 		// Read db settings from file
 		String actualPath = myDir.toString() + filePath
-		log.debug "Config Scanner has Path: " + actualPath
+		log.info "Config Scanner has Path: " + actualPath
 
 		ConfigScanner parser = new ConfigScanner(actualPath)
 
@@ -71,16 +71,16 @@ class Database {
 						@Override
 						public void run() {
 
-							log.debug "Thread gestartet"
+							log.info "Thread gestartet"
 
-							log.debug "Thread for ConfigScanner is running. Filepath is:" + Database.confPath
+							log.info "Thread for ConfigScanner is running. Filepath is:" + Database.confPath
 							while(ConfigScanner.configfileexists) {
 								try {
 
 									// Create a watcher for changes in file system
 									WatchService watcher = myDir.getFileSystem().newWatchService()
 									myDir.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY)
-									log.debug "watchservice registered"
+									log.info "watchservice registered"
 
 									WatchKey watckKey = watcher.take()
 
@@ -90,7 +90,7 @@ class Database {
 										// Changes in file "DB_PROPERTIES"? --> read file
 										if (event.context().toString()
 										.equalsIgnoreCase("DB_PROPERTIES")) {
-											log.debug "reading updated file: " + actualPath
+											log.info "reading updated file: " + actualPath
 
 											// Read db settings from file
 											parser = new ConfigScanner(actualPath)
@@ -145,7 +145,7 @@ class Database {
 		try{
 			//TODO:String connector = database_path + "_" + database_schema
 			String connector = "jdbc:mysql://" + database_path + "_" + database_schema
-			log.debug "DB Trying to connect to: "+ connector
+			log.info "DB Trying to connect to: "+ connector
 			con = DriverManager.getConnection(connector , database_username, database_password)
 		} catch (SQLException e) {
 			log.error "SQL Exception trying to get Connection "
