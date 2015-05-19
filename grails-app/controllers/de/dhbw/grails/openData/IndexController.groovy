@@ -9,6 +9,10 @@ import org.springframework.web.servlet.support.RequestContextUtils
  * @author dhammacher
  * UI presenter class for providing data from the GlobalDAO to the UI
  * session scoped bean per config
+ * 
+ * TODO currently no valid concurrency behaviour is implemented:
+ * see branch: https://github.com/bluscreen/alumNET/tree/concurrency
+ * for a first approach (not working yet)
  *
  */
 class IndexController {
@@ -58,6 +62,8 @@ class IndexController {
 				 *  attached to the markers, as no action listener could be 
 				 *  implemented in short term as onclick for the bubble.
 				 *  
+				 *  TODO : remove this and implement action listener for 
+				 *  marker.onclick to retrieve additional information per ajax request
 				 *  --> performance bottleneck
 				 */
 				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
@@ -88,16 +94,21 @@ class IndexController {
 		 *  Build a String containing all coordinates with their id in a js array
 		 */
 		String markerString = "", line = ""
-		searchResult.eachWithIndex { elem, idx->
-			line = "[" + elem.latitude + ", " + elem.longitude + ", \"" + elem.id + "\", \"" + elem.name +"\", \"" + elem.city + "\"]"
-			line += ((idx+1)<foundAmount) ? ",\n" : "\n"
-			markerString += line
+		searchResult?.eachWithIndex { elem, idx->
+			if(elem != null) {
+				line = "[" + elem?.latitude + ", " + elem?.longitude + ", \"" + elem?.id + "\", \"" + elem?.name +"\", \"" + elem?.city + "\"]"
+				line += ((idx+1)<foundAmount) ? ",\n" : "\n"
+				markerString += line
+			}
+			else {
+				log.error "NPE in resultset at index " + idx
+			}
 		}
 
 		log.debug "markerString: " + markerString
 
 		/**
-		 *  future task:
+		 *  TODO future task:
 		 *  labels should not return the whole dao instance, 
 		 *  the gettext method should be implemented in a dedicated bean
 		 */
@@ -229,9 +240,9 @@ class IndexController {
 
 	}
 
-//	def impressum()
-//	{
-//
-//	}
+	//	def impressum()
+	//	{
+	//
+	//	}
 
 }

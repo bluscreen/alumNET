@@ -116,11 +116,11 @@
 					
 					<g:if test="${renderList}">
 					<ul id="results">
-						<li class="masterTooltip " title="Your search returned ${institutes.size()} result(s)">${institutes.size()} result(s)</li>
+						<li class="masterTooltip " title="Your search returned ${institutes?.size()} result(s)">${institutes?.size()} result(s)</li>
 <!--						${indexCounter = -1}  -->
 						<g:each var="i" in="${institutes}">
 						<li onclick="zoomToMarker(${++indexCounter})">
-								${i.name}, ${i.city}
+								${i?.name}, ${i?.city}
 						</li>
 						</g:each>
 					</ul>

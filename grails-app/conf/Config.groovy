@@ -108,22 +108,22 @@ log4j.main = {
 		console name:'stdout',
 				layout:pattern(conversionPattern: '[%d] %c{2} %m%n'),
 //				threshold: org.apache.log4j.Level.INFO
-				threshold: org.apache.log4j.Level.ERROR
+				threshold: org.apache.log4j.Level.INFO
 		rollingFile name: "fileRoll",
 					maxFileSize: 1024,
 					layout:pattern(conversionPattern: '[%d] %c{2} %m%n'),
-					threshold: org.apache.log4j.Level.ERROR,
+					threshold: org.apache.log4j.Level.INFO,
 					file: "/opt/wikidata/logfiles/alumnetWebapp.log"
 //					file: "C:/TEMP/alumnetConfig/alumnet.log"
 	}
 
 	root {
-//		info 'stdout', 'fileRoll'
-		error 'stdout', 'fileRoll'
+		info 'stdout', 'fileRoll'
+//			error 'stdout', 'fileRoll'
 	}
 	
-//	info "grails.app"
-	error "grails.app"
+	info "grails.app"
+//	error "grails.app"
 
 	error  'org.codehaus.groovy.grails.web.servlet',        // controllers
 			'org.codehaus.groovy.grails.web.pages',          // GSP
