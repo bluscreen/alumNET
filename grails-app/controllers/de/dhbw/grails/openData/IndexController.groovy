@@ -55,24 +55,24 @@ class IndexController {
 			/**
 			 * user is here for the first time or has not enteres search criteria
 			 */
-			List<EducationInstituteBasicInformation> allResults = GlobalDAO.instance.getAllEducationInstitutes()
-			allResults.each { e->
-				/**
-				 *  here we retrieve additional information for the bubbles 
-				 *  attached to the markers, as no action listener could be 
-				 *  implemented in short term as onclick for the bubble.
-				 *  
-				 *  TODO : remove this and implement action listener for 
-				 *  marker.onclick to retrieve additional information per ajax request
-				 *  --> performance bottleneck
-				 */
-				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
-				if(ei == null){
-					log.info "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
-				}else{
-					searchResult.add(ei)
-				}
-			}
+			searchResult = GlobalDAO.instance.getAllEducationInstitutes()
+			//			allResults.each { e->
+			//				/**
+			//				 *  here we retrieve additional information for the bubbles
+			//				 *  attached to the markers, as no action listener could be
+			//				 *  implemented in short term as onclick for the bubble.
+			//				 *
+			//				 *  TODO : remove this and implement action listener for
+			//				 *  marker.onclick to retrieve additional information per ajax request
+			//				 *  --> performance bottleneck
+			//				 */
+			//				EducationInstitute ei = GlobalDAO.instance.getEducationInstituteById(e.id, session.getAttribute("systemLanguage"))
+			//				if(ei == null){
+			//					log.info "could not find ei for " + e + " , language: " + session.getAttribute("systemLanguage")
+			//				}else{
+			//					searchResult.add(ei)
+			//				}
+			//			}
 		}
 		else {
 			/**
@@ -96,16 +96,26 @@ class IndexController {
 		String markerString = "", line = ""
 		def badItems = []
 		searchResult.eachWithIndex { elem, idx->
-			if(elem != null && (elem.name != null && !elem.name.isEmpty() && elem.city != null && !elem.city.isEmpty())) {
+			//				if(elem != null && (elem.name != null && !elem.name.isEmpty() && elem.city != null && !elem.city.isEmpty())) {
+			if(!rendList)
+			{
+				line = "[" + elem?.latitude + ", " + elem?.longitude + ", \"" + elem?.id + "\", \"" + elem?.id +"\", \"" + elem?.id + "\"]"
+				
+			}
+			else
+			{
 				line = "[" + elem?.latitude + ", " + elem?.longitude + ", \"" + elem?.id + "\", \"" + elem?.name +"\", \"" + elem?.city + "\"]"
-				line += ((idx+1)<foundAmount) ? ",\n" : "\n"
-				markerString += line
+				
 			}
-			else {
-				log.error "NPE in resultset at index " + idx + " elem: " + elem
-				badItems << elem
-			}
+			line += ((idx+1)<foundAmount) ? ",\n" : "\n"
+			markerString += line
+			//				}
+			//				else {
+			//					log.error "NPE in resultset at index " + idx + " elem: " + elem
+			//					badItems << elem
+			//				}
 		}
+
 		/**
 		 * remove null etc objects from searchresult
 		 */
