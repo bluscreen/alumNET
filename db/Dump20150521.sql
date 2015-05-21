@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `wikidata_b` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `wikidata_b`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for Wn32 (x86)
 --
 -- Host: localhost    Database: wikidata_b
 -- ------------------------------------------------------
